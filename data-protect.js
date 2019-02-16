@@ -29,7 +29,7 @@
         return string.substr(2, firstSeg) + string.substr(firstSeg + 4, originalLength - firstSeg);
     }
 
-    window.encryptEmail = function (input, secret, seg = 3) {
+    window.encryptText = function (input, secret, seg = 3) {
         if (!input) {
             throw Error('Missing input');
         }
@@ -67,7 +67,7 @@
         }
     };
 
-    window.decryptEmail = function (encrypted, secret, seg = 3) {
+    window.decryptText = function (encrypted, secret, seg = 3) {
         if (!encrypted) {
             throw Error('Missing encrypted input');
         }
