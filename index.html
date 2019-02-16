@@ -1,0 +1,10 @@
+<script src="data-protect.js"></script>
+<script src="data-protect.min.js"></script>
+<script>
+    var input = 'dangdungcntt@gmail.com';
+    var key = 'supersecretkey';
+    var en = encryptEmail(input, key);
+    var de = decryptEmail(en, key);
+
+    document.write('Input: ' + input + '<br>Encrypted: ' + en + '<br>Decrypted: ' + de);
+</script>
