@@ -30,12 +30,16 @@
     }
 
     window.encryptText = function (input, secret, seg = 3) {
+        if (seg < 2 || seg > 15) {
+            throw Error('Invalid seg. seg must between 2-15');
+        }
+        
         if (!input) {
-            throw Error('Missing input');
+            throw Error('Invalid input. Input must not empty');
         }
 
         if (!secret) {
-            throw Error('Missing secret');
+            throw Error('Invalid secret. Secret must not empty');
         }
 
         try {
@@ -44,10 +48,8 @@
             let time = Math.round(decSeg * Math.random());
 
             let key = secret.split('').reduce((res, cur) => {
-                return res * 10 + cur.charCodeAt(0);
+                return ((res * 10 % decSeg) + (cur.charCodeAt(0) % decSeg)) % decSeg;
             }, 10);
-
-            key %= decSeg;
 
             base = key ^ time;
 
@@ -68,24 +70,26 @@
     };
 
     window.decryptText = function (encrypted, secret, seg = 3) {
+        if (seg < 2 || seg > 15) {
+            throw Error('Invalid seg. seg must between 2-15');
+        }
+        
         if (!encrypted) {
-            throw Error('Missing encrypted input');
+            throw Error('Invalid encrypted. Encrypted must not empty');
         }
 
         if (!secret) {
-            throw Error('Missing secret');
+            throw Error('Invalid secret. Secret must not empty');
         }
-
+       
         try {
             let decSeg = parseInt('f'.repeat(seg), 16);
 
             seg += 6;
 
             let key = secret.split('').reduce((res, cur) => {
-                return res * 10 + cur.charCodeAt(0);
+                return ((res * 10 % decSeg) + (cur.charCodeAt(0) % decSeg)) % decSeg;
             }, 10);
-
-            key %= decSeg;
 
             let time = substrAndToInt(encrypted, 0, seg);
 
