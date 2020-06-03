@@ -51,12 +51,11 @@
                 return ((res * 10 % decSeg) + (cur.charCodeAt(0) % decSeg)) % decSeg;
             }, 10);
 
-            base = key ^ time;
+            let base = key ^ time;
 
             let time16 = time.toString(16);
             
             let output = mix(pad(time16, seg));
-
 
             input.trim().split('').forEach(c => {
                 output += '' + mix(pad((c.charCodeAt(0) ^ base).toString(16), seg));
